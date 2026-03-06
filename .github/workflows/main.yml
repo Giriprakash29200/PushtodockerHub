@@ -28,4 +28,11 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/app:latest
+          tags: | 
+            ${{ secrets.DOCKER_USERNAME }}/app:latest
+            ${{ secrets.DOCKER_USERNAME }}/app:${{ github.run_number }}
+      
+      - name: Verify image
+        run: |
+          echo "Image pushed:"
+          echo "${{ secrets.DOCKER_USERNAME }}/app:${{ github.run_number }}"
